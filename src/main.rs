@@ -6,8 +6,10 @@ use std::path::Path;
 fn main() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
+        println!(".");
         dfs(".", &mut "".to_string())?
     } else {
+        println!("{}",&args[1]);
         dfs(&args[1], &mut "".to_string())?
     }
     Ok(())
