@@ -1,0 +1,1 @@
+The `tree` command is used to view the file structure of a directory
