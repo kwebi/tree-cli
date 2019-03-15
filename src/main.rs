@@ -14,25 +14,36 @@ fn main() -> io::Result<()> {
 }
 
 fn dfs(path: &str, blank: &mut String) -> io::Result<()> {
+    let mut i: usize = 0;
+    let len = fs::read_dir(path)?.count();
     for entry in fs::read_dir(path)? {
         let dir = entry?;
         let dir_path = dir.path();
         let this_path_str = dir_path.to_str().expect("path convert to str error");
         let this_path = Path::new(this_path_str);
-
-        println!("{}ㅣ", &blank);
+        //判断是否为最后一个
+        if i + 1 == len {
+            blank.push_str("└── ");
+        } else {
+            blank.push_str("├── ");
+        }
         println!("{}{}", &blank, dir.file_name().to_str().unwrap());
-        if this_path.is_dir() {
-            blank.push('|');
-            for _ in 0..5 {
-                blank.push(' ');
-            }
-            dfs(this_path_str, blank)?;
-            for _ in 0..5 {
-                blank.pop();
-            }
+        for _ in 0..4 {
             blank.pop();
         }
+        if this_path.is_dir() {
+            if i + 1 != len {
+                blank.push('│');
+            } else {
+                blank.push(' ');
+            }
+            blank.push_str("   ");
+            dfs(this_path_str, blank)?;
+            for _ in 0..4 {
+                blank.pop();
+            }
+        }
+        i += 1;
     }
     Ok(())
 }
