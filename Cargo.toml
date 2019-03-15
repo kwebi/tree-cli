@@ -1,6 +1,6 @@
 [package]
 name = "tree-cli"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["kwebi <1565718281@qq.com>"]
 edition = "2018"
 license = "MIT"
